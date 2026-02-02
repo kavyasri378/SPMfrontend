@@ -49,10 +49,6 @@ const EditStudent = () => {
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    fetchStudentProfile();
-  }, [id, fetchStudentProfile]);
-
   const fetchStudentProfile = useCallback(async () => {
     try {
       const res = await api.get(`/api/profile/${id}`);
@@ -89,6 +85,10 @@ const EditStudent = () => {
       setLoading(false);
     }
   }, [id, navigate]);
+
+  useEffect(() => {
+    fetchStudentProfile();
+  }, [id, fetchStudentProfile]);
 
   const handleChange = (section, field, value) => {
     setFormData(prev => ({

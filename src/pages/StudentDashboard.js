@@ -15,10 +15,6 @@ const StudentDashboard = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchProfile();
-  }, [fetchProfile]);
-
   const fetchProfile = useCallback(async () => {
     try {
       const res = await api.get('/api/profile/me');
@@ -33,6 +29,10 @@ const StudentDashboard = () => {
       setLoading(false);
     }
   }, [navigate]);
+
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
 
   if (loading) {
     return (

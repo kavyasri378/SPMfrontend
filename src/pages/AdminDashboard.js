@@ -23,11 +23,6 @@ const AdminDashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    fetchStats();
-    fetchStudents();
-  }, [currentPage, searchTerm, filterCourse, filterYear, fetchStudents]);
-
   const fetchStats = async () => {
     try {
       const res = await api.get('/api/profile/stats/dashboard');
@@ -59,6 +54,11 @@ const AdminDashboard = () => {
       setLoading(false);
     }
   }, [currentPage, searchTerm, filterCourse, filterYear]);
+
+  useEffect(() => {
+    fetchStats();
+    fetchStudents();
+  }, [currentPage, searchTerm, filterCourse, filterYear, fetchStudents]);
 
   const handleDelete = async (studentId) => {
     if (!window.confirm('Are you sure you want to delete this student profile?')) {
