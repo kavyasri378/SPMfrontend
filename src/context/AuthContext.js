@@ -94,6 +94,10 @@ export const AuthProvider = ({ children }) => {
         });
       } catch (error) {
         console.error('Load user error:', error);
+        // Don't show toast for network errors in production
+        if (process.env.NODE_ENV === 'development') {
+          toast.error('Failed to load user. Backend may be unavailable.');
+        }
         dispatch({
           type: AUTH_FAIL,
         });
@@ -188,6 +192,13 @@ export const AuthProvider = ({ children }) => {
   // Load user on initial render
   useEffect(() => {
     loadUser();
+    
+    // Set a timeout to prevent infinite loading
+    const timeout = setTimeout(() => {
+      dispatch({ type: AUTH_FAIL });
+    }, 10000); // 10 seconds timeout
+    
+    return () => clearTimeout(timeout);
   }, [loadUser]);
 
   const value = {
