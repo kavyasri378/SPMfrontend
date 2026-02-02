@@ -6,17 +6,13 @@ import {
   BookOpen, 
   DollarSign, 
   Calendar,
-  Phone,
-  Mail,
   MapPin,
-  Award,
-  CreditCard
+  Award
 } from 'lucide-react';
 import api from '../utils/api';
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 

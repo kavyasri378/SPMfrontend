@@ -3,15 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { 
   Users, 
   Search, 
-  Filter, 
   Edit, 
   Trash2, 
-  Plus,
   DollarSign,
   UserCheck,
-  UserX,
-  BookOpen,
-  TrendingUp
+  UserX
 } from 'lucide-react';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
@@ -89,14 +85,6 @@ const AdminDashboard = () => {
       style: 'currency',
       currency: 'INR'
     }).format(amount);
-  };
-
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
   };
 
   const clearFilters = () => {

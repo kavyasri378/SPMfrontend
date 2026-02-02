@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import api, { setAuthToken } from '../utils/api';
+import api from '../utils/api';
 import toast from 'react-hot-toast';
 
 // Create context
