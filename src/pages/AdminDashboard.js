@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   Users, 
@@ -26,7 +26,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     fetchStats();
     fetchStudents();
-  }, [currentPage, searchTerm, filterCourse, filterYear]);
+  }, [currentPage, searchTerm, filterCourse, filterYear, fetchStudents]);
 
   const fetchStats = async () => {
     try {
@@ -37,7 +37,7 @@ const AdminDashboard = () => {
     }
   };
 
-  const fetchStudents = async () => {
+  const fetchStudents = useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams({
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, searchTerm, filterCourse, filterYear]);
 
   const handleDelete = async (studentId) => {
     if (!window.confirm('Are you sure you want to delete this student profile?')) {

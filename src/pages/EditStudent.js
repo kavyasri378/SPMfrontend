@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { 
   User, 
@@ -51,9 +51,9 @@ const EditStudent = () => {
 
   useEffect(() => {
     fetchStudentProfile();
-  }, [id]);
+  }, [id, fetchStudentProfile]);
 
-  const fetchStudentProfile = async () => {
+  const fetchStudentProfile = useCallback(async () => {
     try {
       const res = await api.get(`/api/profile/${id}`);
       const profile = res.data.data;
@@ -88,7 +88,7 @@ const EditStudent = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, navigate]);
 
   const handleChange = (section, field, value) => {
     setFormData(prev => ({

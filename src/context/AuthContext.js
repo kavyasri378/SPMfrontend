@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useCallback } from 'react';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
 
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Load user
-  const loadUser = async () => {
+  const loadUser = useCallback(async () => {
     const token = localStorage.getItem('token');
     
     if (token) {
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }) => {
         type: AUTH_FAIL,
       });
     }
-  };
+  }, []);
 
   // Register user
   const register = async (formData) => {
@@ -188,7 +188,7 @@ export const AuthProvider = ({ children }) => {
   // Load user on initial render
   useEffect(() => {
     loadUser();
-  }, []);
+  }, [loadUser]);
 
   const value = {
     ...state,
